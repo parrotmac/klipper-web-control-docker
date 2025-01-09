@@ -10,6 +10,9 @@ services:
     # group_add:
     #   - "996"
     #   - "998"
+    group_add:
+      - 20
+      - 1000
     cap_add:
       - SYS_NICE
     container_name: klipper
@@ -17,17 +20,18 @@ services:
       - 7125:7125
     restart: unless-stopped
     volumes:
-      - gcode_files:/home/klippy/gcode_files
+      - ./gcode_files:/home/klippy/printer_data/gcodes/
       # be aware to create your own branch if you mount the config folder as it will be updated on the main branch
       # that way you can merge upstream changes to your customized configs
       - ./config:/home/klippy/.config
       - moonraker_data:/home/klippy/.moonraker_database
       # - <<your_config_path>>:/home/klippy/.config
-      # - ./printer.cfg:/home/klippy/.config/printer.cfg
+      #- ./printer.cfg:/home/klippy/.config/printer.cfg
+      #- ./virtual_sd:/home/klippy/virtual_sd
     # mount serial device - take care to grant sufficient permissions to the device: <host_dev>:<container_dev>
     # put <container_dev> into your printer.cfg
     devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyACM0:/dev/ttyACM0
 
   ##################################################################
   # Example config for a second printer on a different serial port

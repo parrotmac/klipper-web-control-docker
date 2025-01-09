@@ -2,3 +2,5 @@ printer.cfg
 !config/printer.cfg
 .config
 build
+gcode_files/*
+

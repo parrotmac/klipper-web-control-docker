@@ -1,0 +1,3 @@
+[submodule "config/klipper-prusa-mk3s"]
+	path = config/klipper-prusa-mk3s
+	url = https://github.com/parrotmac/klipper-prusa-mk3s

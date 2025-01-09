@@ -9,9 +9,10 @@ CONFIG_PATH=${BUILD_DIR}/${CONFIG_NAME}
 touch ${CONFIG_PATH}
 OUT_DIR=${BUILD_DIR}/klipper_build_${TARGET}
 mkdir -p ${BUILD_DIR}
-CONTAINER=$(docker run -d -v ${CONFIG_PATH}:/home/klippy/klipper/.config -v ${BUILD_DIR}:/home/klippy/klipper/out klipper-builder sleep infinity)
+CONTAINER=$(docker run -d -v /dev/ttyACM0:/dev/ttyACM0 -v ${CONFIG_PATH}:/home/klippy/klipper/.config -v ${BUILD_DIR}:/home/klippy/klipper/out --privileged klipper-builder sleep infinity)
 docker exec -it ${CONTAINER} make menuconfig
 docker exec ${CONTAINER} make
-#docker exec ${CONTAINER} make flash
+docker exec ${CONTAINER} make flash FLASH_DEVICE=/dev/ttyACM0
 docker stop ${CONTAINER}
 docker rm ${CONTAINER}
+
